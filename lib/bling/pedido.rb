@@ -4,7 +4,7 @@ module Bling
     attr_reader :numero, :situacao
 
     # Valores
-    attr_reader :valor_frete
+    attr_reader :valor_frete, :desconto
 
     # Observações
     attr_accessor :observacoes, :observacao_interna
@@ -39,7 +39,7 @@ module Bling
       @numero = value
     end
 
-    [:desconto, :valor_frete, :total_produtos, :total_venda].each do |attr|
+    [:desconto, :valor_frete].each do |attr|
       define_method "#{attr}=".to_sym do |value|
         if value.is_a? String
           value = value.to_f
