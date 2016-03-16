@@ -32,11 +32,14 @@ module Bling
         case attr
         when :tipo_pessoa
           key = attr.to_s.camelize(:lower)
-        when :ie_rg
+        when :rg
           key = 'ie_rg'
-        when :cpf_cnpj
+        when :cpf
+          key = 'cpf_cnpj'
+        when :cnpj
           key = 'cpf_cnpj'
         end
+
 
         hash[key] = value
       end
