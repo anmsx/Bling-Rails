@@ -4,7 +4,7 @@ module Bling
     attr_reader :numero, :situacao
 
     # Valores
-    attr_reader :desconto, :valor_frete, :total_produtos, :total_venda
+    attr_reader :valor_frete
 
     # Observações
     attr_accessor :observacoes, :observacao_interna
@@ -13,14 +13,14 @@ module Bling
     attr_reader :data
 
     # Other
-    attr_accessor :vendedor
+    attr_accessor :vendedor, :numero_loja
     attr_reader :cliente, :itens, :parcelas
 
     def initialize json = {}
       @json = json
 
       all_variables.each do |attr|
-        self.send("#{attr}=".to_sym, json[attr.to_s.gsub('_', '')])
+        self.send("#{attr}=".to_sym, json[attr.to_s])
       end
     end
 
@@ -119,6 +119,14 @@ module Bling
           value = value.map(&:to_post_hash)
         when :cliente
           value = value.to_post_hash
+        when :observacoes
+            key = :obs
+        when :observacao_interna
+            key = :obs_internas
+        when :valor_frete
+            key = :vlr_frete
+        when :desconto
+            key = :vlr_desconto
         end
 
         hash[key] = value
@@ -128,7 +136,7 @@ module Bling
     end
 
     def all_variables
-      [:numero, :situacao, :desconto, :valor_frete, :total_produtos, :total_venda, :observacoes, :observacao_interna, :data, :vendedor, :cliente, :itens, :parcelas]
+      [:numero, :situacao, :desconto, :valor_frete, :observacoes, :observacao_interna, :data, :vendedor, :cliente, :itens, :parcelas, :numero_loja]
     end
 
     def self.possible_situations
